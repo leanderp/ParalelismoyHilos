@@ -8,18 +8,18 @@ namespace ParalelismoyHilos
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             string fileName = "result.txt";
             var fs = new FileStream(fileName, FileMode.Append, FileAccess.Write);
             Parallel.For(1, 100, new ParallelOptions { MaxDegreeOfParallelism = 10 },
                 (i) =>
                 {
-                    Write(fileName, i, fs);
+                    Write(i, fs);
                 });
         }
 
-        static void Write(string path, int id, FileStream fs)
+        static void Write(int id, FileStream fs)
         {
             HttpClient client = new HttpClient();
             var response = client.GetAsync("https://jsonplaceholder.typicode.com/todos/" + id).Result;
